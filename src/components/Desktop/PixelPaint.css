@@ -1,0 +1,625 @@
+
+/* =========================================
+   PIXEL PAINT — DESKTOP.EXE
+========================================= */
+
+.pixel-paint {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #edf1f7;
+  color: #29364b;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* TOP BAR */
+
+.paint-topbar {
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 13px;
+  background: #f9fbfe;
+  border-bottom: 1px solid #dce3ec;
+}
+
+.paint-document,
+.paint-history {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paint-document {
+  min-width: 0;
+  color: #6686aa;
+}
+
+.paint-document input {
+  width: 160px;
+  max-width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #34465e;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.paint-history button {
+  height: 29px;
+  min-width: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 7px;
+  border: 1px solid #dce4ee;
+  border-radius: 5px;
+  background: white;
+  color: #60758f;
+  cursor: pointer;
+}
+
+.paint-history button:hover:not(:disabled) {
+  background: #e8f2ff;
+  border-color: #91b9e5;
+}
+
+.paint-history button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.paint-history .paint-export {
+  padding: 0 10px;
+  background: #397fbd;
+  border-color: #397fbd;
+  color: white;
+  font-size: 9px;
+}
+
+.paint-history .paint-export:hover {
+  background: #286da9;
+  color: white;
+}
+
+.paint-divider {
+  width: 1px;
+  height: 20px;
+  background: #dce3ec;
+}
+
+/* WORKSPACE */
+
+.paint-workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr) 145px;
+}
+
+/* TOOLBAR */
+
+.paint-toolbar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 7px;
+  border-right: 1px solid #dce3ec;
+  background: #f7f9fc;
+}
+
+.paint-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .7px;
+  color: #91a0b3;
+}
+
+.paint-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.paint-tool-grid button {
+  width: 25px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: #72839b;
+  cursor: pointer;
+}
+
+.paint-tool-grid button:hover {
+  background: #e4eefb;
+}
+
+.paint-tool-grid button.active {
+  background: #d9eaff;
+  border-color: #8bb9eb;
+  color: #2778bc;
+}
+
+.paint-tool-divider {
+  width: 100%;
+  height: 1px;
+  background: #e1e7ef;
+  margin: 3px 0;
+}
+
+.paint-brush-preview {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e1e7ef;
+  border-radius: 7px;
+  background: white;
+}
+
+.paint-brush-preview span {
+  max-width: 32px;
+  max-height: 32px;
+  border-radius: 50%;
+}
+
+.paint-size-slider {
+  width: 46px;
+  accent-color: #438ed0;
+  cursor: pointer;
+}
+
+.paint-size-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: #73839a;
+}
+
+.paint-backgrounds {
+  display: grid;
+  grid-template-columns: repeat(2, 19px);
+  gap: 7px;
+}
+
+.paint-backgrounds button {
+  width: 19px;
+  height: 19px;
+  border: 2px solid #d7dfe9;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paint-backgrounds button.selected {
+  outline: 2px solid #438ed0;
+  outline-offset: 2px;
+}
+
+/* CANVAS AREA */
+
+.paint-canvas-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: #e6ebf2;
+}
+
+.paint-canvas-header,
+.paint-canvas-footer {
+  min-height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: .5px;
+  color: #8493a6;
+  background: #edf1f7;
+}
+
+.paint-canvas-header > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.paint-canvas-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #61b68a;
+}
+
+.paint-canvas-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.paint-canvas-frame {
+  width: 100%;
+  max-width: 900px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid #cbd5e2;
+  border-radius: 3px;
+  background: white;
+  box-shadow: 0 7px 25px #263a551c;
+}
+
+.paint-canvas-frame canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1000 / 620;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.paint-canvas-footer {
+  border-top: 1px solid #dce3ec;
+}
+
+/* COLOUR PANEL */
+
+.paint-colors {
+  padding: 14px 10px;
+  border-left: 1px solid #dce3ec;
+  background: #f8fafd;
+  overflow-y: auto;
+}
+
+.paint-color-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 17px;
+  color: #6d83a0;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.paint-current-color {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.paint-current-color > span {
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+  border: 2px solid white;
+  border-radius: 7px;
+  outline: 1px solid #dce3ec;
+}
+
+.paint-current-color > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.paint-current-color strong {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+}
+
+.paint-current-color small {
+  font-size: 7px;
+  letter-spacing: .7px;
+  color: #92a0b1;
+}
+
+.paint-palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.paint-palette button {
+  width: 22px;
+  height: 22px;
+  border: 2px solid white;
+  border-radius: 6px;
+  outline: 1px solid #dce3ec;
+  cursor: pointer;
+}
+
+.paint-palette button.selected {
+  outline: 2px solid #438ed0;
+  outline-offset: 2px;
+}
+
+.paint-custom-color {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 23px;
+  padding-top: 15px;
+  border-top: 1px solid #e1e7ef;
+}
+
+.paint-custom-color label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  color: #65758c;
+  cursor: pointer;
+}
+
+.paint-custom-color input {
+  width: 28px;
+  height: 25px;
+  padding: 0;
+  border: 1px solid #dce3ec;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+}
+
+.paint-tip {
+  margin-top: 25px;
+  padding: 10px 8px;
+  border: 1px solid #dce8f5;
+  border-radius: 7px;
+  background: #edf5ff;
+}
+
+.paint-tip > span {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: #438ed0;
+}
+
+.paint-tip p {
+  margin: 7px 0 0;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #71829a;
+}
+
+/* STATUS BAR */
+
+.paint-statusbar {
+  min-height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 11px;
+  border-top: 1px solid #dce3ec;
+  background: #f9fbfd;
+  color: #8190a4;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+}
+
+.paint-statusbar span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* OS VARIATIONS */
+
+.os-arcade .pixel-paint {
+  background: #151222;
+  color: #eee7ff;
+}
+
+.os-arcade .paint-topbar,
+.os-arcade .paint-toolbar,
+.os-arcade .paint-colors,
+.os-arcade .paint-statusbar {
+  background: #211a32;
+  color: #e8ddff;
+  border-color: #594275;
+}
+
+.os-arcade .paint-document input {
+  color: #eee7ff;
+}
+
+.os-arcade .paint-history button {
+  background: #342747;
+  color: #e7d6ff;
+  border-color: #644c82;
+}
+
+.os-arcade .paint-history .paint-export {
+  background: #8b50d0;
+  border-color: #8b50d0;
+}
+
+.os-arcade .paint-tool-grid button.active {
+  background: #5d3483;
+  color: #fff;
+  border-color: #be82ff;
+}
+
+.os-arcade .paint-canvas-area {
+  background: #211a32;
+}
+
+.os-arcade .paint-canvas-header,
+.os-arcade .paint-canvas-footer {
+  background: #29213b;
+  color: #bba9d8;
+  border-color: #594275;
+}
+
+.os-arcade .paint-tip {
+  background: #35264c;
+  border-color: #7654a0;
+}
+
+.os-arcade .paint-tip p {
+  color: #d3c4e8;
+}
+
+.os-dream .pixel-paint {
+  background: #fff7fb;
+  color: #804f6d;
+}
+
+.os-dream .paint-topbar,
+.os-dream .paint-toolbar,
+.os-dream .paint-colors,
+.os-dream .paint-statusbar {
+  background: #fff0f7;
+  color: #804f6d;
+  border-color: #f0d1e2;
+}
+
+.os-dream .paint-document input {
+  color: #804f6d;
+}
+
+.os-dream .paint-history button {
+  background: white;
+  color: #ad6993;
+  border-color: #efcfe1;
+}
+
+.os-dream .paint-history .paint-export {
+  background: #d77eae;
+  border-color: #d77eae;
+  color: white;
+}
+
+.os-dream .paint-tool-grid button.active {
+  background: #f8d6e8;
+  color: #ad5586;
+  border-color: #e9a6c8;
+}
+
+.os-dream .paint-canvas-area {
+  background: #fbeaf3;
+}
+
+.os-dream .paint-canvas-header,
+.os-dream .paint-canvas-footer {
+  background: #fceef5;
+  color: #ac7b98;
+  border-color: #f0d1e2;
+}
+
+.os-dream .paint-tip {
+  background: #fce4f0;
+  border-color: #efc8dc;
+}
+
+.os-dream .paint-tip p {
+  color: #a26f8c;
+}
+
+.os-nexus .pixel-paint {
+  background: #101d29;
+  color: #d9f7f4;
+}
+
+.os-nexus .paint-topbar,
+.os-nexus .paint-toolbar,
+.os-nexus .paint-colors,
+.os-nexus .paint-statusbar {
+  background: #142735;
+  color: #d9f7f4;
+  border-color: #285362;
+}
+
+.os-nexus .paint-document input {
+  color: #d9f7f4;
+}
+
+.os-nexus .paint-history button {
+  background: #1e3744;
+  color: #c5f4ee;
+  border-color: #356472;
+}
+
+.os-nexus .paint-history .paint-export {
+  background: #138f91;
+  border-color: #138f91;
+  color: white;
+}
+
+.os-nexus .paint-tool-grid button.active {
+  background: #17515a;
+  color: #8cfff0;
+  border-color: #35cbbd;
+}
+
+.os-nexus .paint-canvas-area {
+  background: #10212e;
+}
+
+.os-nexus .paint-canvas-header,
+.os-nexus .paint-canvas-footer {
+  background: #18313d;
+  color: #8ebdb9;
+  border-color: #285362;
+}
+
+.os-nexus .paint-tip {
+  background: #183e47;
+  border-color: #267078;
+}
+
+.os-nexus .paint-tip p {
+  color: #a4d5d0;
+}
+
+/* SMALL WINDOWS */
+
+@media(max-width: 650px) {
+  .paint-workspace {
+    grid-template-columns: 52px minmax(0, 1fr) 95px;
+  }
+
+  .paint-colors {
+    padding: 10px 6px;
+  }
+
+  .paint-palette {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .paint-tip {
+    display: none;
+  }
+
+  .paint-topbar {
+    padding: 5px;
+  }
+
+  .paint-history {
+    gap: 3px;
+  }
+
+  .paint-history button {
+    padding: 0 5px;
+  }
+
+  .paint-statusbar {
+    font-size: 7px;
+  }
+}

@@ -1,11 +1,16 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Monitor, Gamepad2, Heart, Cpu, Sparkles,
-  ArrowUpRight, ArrowRight, Power, Wifi,
-  Volume2, Battery
+  Monitor,
+  Gamepad2,
+  Heart,
+  Cpu,
+  Wifi,
+  Volume2,
+  Battery,
 } from "lucide-react";
+
 import Desktop from "./components/Desktop/Desktop";
 import "./App.css";
 
@@ -26,7 +31,8 @@ const operatingSystems: OS[] = [
     id: "retro",
     name: "Retro Windows",
     subtitle: "THE CLASSIC NEVER DIES",
-    description: "Revisit the golden age of personal computing. Familiar windows, nostalgic sounds and the internet we grew up with.",
+    description:
+      "Revisit the golden age of personal computing. Familiar windows, nostalgic sounds and the internet we grew up with.",
     version: "OS 01 / CLASSIC EDITION",
     accent: "#75B9F4",
     icon: Monitor,
@@ -37,7 +43,8 @@ const operatingSystems: OS[] = [
     id: "arcade",
     name: "Arcade.exe",
     subtitle: "PRESS START TO EXIST",
-    description: "Enter a universe where everything is a game. Unlock experiences, collect achievements and make this desktop your playground.",
+    description:
+      "Enter a universe where everything is a game. Unlock experiences, collect achievements and make this desktop your playground.",
     version: "OS 02 / ARCADE EDITION",
     accent: "#B58AFF",
     icon: Gamepad2,
@@ -48,7 +55,8 @@ const operatingSystems: OS[] = [
     id: "dream",
     name: "DreamOS",
     subtitle: "A LITTLE WORLD OF YOUR OWN",
-    description: "A dreamy digital dollhouse filled with pretty details, creative spaces, soft colours and a little everyday magic.",
+    description:
+      "A dreamy digital dollhouse filled with pretty details, creative spaces, soft colours and a little everyday magic.",
     version: "OS 03 / DREAM EDITION",
     accent: "#F3A8D0",
     icon: Heart,
@@ -59,7 +67,8 @@ const operatingSystems: OS[] = [
     id: "nexus",
     name: "Nexus OS",
     subtitle: "WELCOME TO TOMORROW",
-    description: "A new digital frontier. Explore a futuristic interface, holographic workspaces and a universe of connected experiences.",
+    description:
+      "A new digital frontier. Explore a futuristic interface, holographic workspaces and a universe of connected experiences.",
     version: "OS 04 / FUTURE EDITION",
     accent: "#56E0D0",
     icon: Cpu,
@@ -76,10 +85,10 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
-    const timer = window.setInterval(
-      () => setCurrentTime(new Date()),
-      1000
-    );
+    const timer = window.setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
     return () => window.clearInterval(timer);
   }, []);
 
@@ -95,6 +104,7 @@ function App() {
 
       if (value >= 100) {
         window.clearInterval(timer);
+
         window.setTimeout(() => {
           setBooting(false);
           setBootComplete(true);
@@ -117,6 +127,32 @@ function App() {
     setProgress(0);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (booting || bootComplete) return;
+
+      const target = event.target as HTMLElement | null;
+      if (
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.isContentEditable
+      ) {
+        return;
+      }
+
+      if (["1", "2", "3", "4"].includes(event.key)) {
+        setSelectedOS(operatingSystems[Number(event.key) - 1]);
+      }
+
+      if (event.key === "Enter") {
+        launchOS();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [booting, bootComplete]);
+
   const formattedTime = currentTime.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -129,185 +165,169 @@ function App() {
   });
 
   if (bootComplete) {
-    return (
-      <Desktop
-        os={selectedOS.id}
-        onExit={resetOS}
-      />
-    );
+    return <Desktop os={selectedOS.id} onExit={resetOS} />;
   }
 
-  return (
-    <main className={`app-shell theme-${selectedOS.id}`}>
-      <div className="ambient ambient-one" />
-      <div className="ambient ambient-two" />
-      <div className="noise-overlay" />
+  const BootIcon = selectedOS.icon;
 
+  return (
+    <main className="app-shell">
       <AnimatePresence mode="wait">
         {!booting ? (
           <motion.div
             key="selector"
-            className="selector-page"
+            className="terminal-page"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
+            exit={{ opacity: 0 }}
           >
-            <header className="topbar">
-              <a className="brand" href="#" onClick={(e) => e.preventDefault()}>
-                <div className="brand-icon">
-                  <Monitor size={19} />
-                  <span />
-                </div>
-                <span>desktop<span className="brand-dot">.</span>exe</span>
+            <header className="terminal-header">
+              <a
+                className="terminal-brand"
+                href="#"
+                onClick={(event) => event.preventDefault()}
+              >
+                <span className="brand-symbol">D</span>
+                <span>DESKTOP.EXE</span>
               </a>
 
-              <div className="topbar-right">
-                <span className="system-status">
-                  <span className="status-dot" />
-                  ALL SYSTEMS OPERATIONAL
-                </span>
-                <span className="topbar-divider" />
-                <span className="topbar-time">{formattedTime}</span>
+              <div className="header-status">
+                <span className="status-indicator" />
+                SYSTEM ONLINE
+                <span className="header-divider">/</span>
+                {formattedTime}
               </div>
             </header>
 
-            <section className="hero-section">
-              <motion.div
-                className="hero-eyebrow"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <Sparkles size={13} />
-                <span>A NEW KIND OF DIGITAL EXPERIENCE</span>
-                <span className="eyebrow-line" />
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                One computer.
-                <br />
-                <span>Four different worlds.</span>
-              </motion.h1>
-
-              <motion.p
-                className="hero-description"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                Choose your universe. Explore your desktop.
-                <br className="desktop-break" />
-                Make the internet your own.
-              </motion.p>
-
-              <div className="selection-label">
-                <span className="selection-line" />
-                SELECT YOUR OPERATING SYSTEM
-                <span className="selection-line" />
+            <section className="terminal-main">
+              <div className="terminal-meta">
+                <span>DESKTOP.EXE [VERSION 1.0.0]</span>
+                <span>INTERACTIVE ENVIRONMENT SELECTOR</span>
               </div>
-            </section>
 
-            <section className="os-grid">
-              {operatingSystems.map((os, index) => {
-                const Icon = os.icon;
-                const selected = selectedOS.id === os.id;
+              <div className="terminal-intro">
+                <p className="terminal-comment">
+                  // A collection of operating systems. One digital universe.
+                </p>
+                <h1>
+                  Welcome to
+                  <br />
+                  <span>desktop.exe</span>
+                </h1>
+                <p className="terminal-description">
+                  Choose an environment to initialise your desktop.
+                  <br />
+                  Each system has its own interface, applications and personality.
+                </p>
+              </div>
 
-                return (
-                  <motion.button
-                    key={os.id}
-                    className={`os-card os-${os.id} ${selected ? "selected" : ""}`}
-                    onClick={() => setSelectedOS(os)}
-                    onDoubleClick={launchOS}
-                    style={{ "--os-accent": os.accent } as React.CSSProperties}
-                    initial={{ opacity: 0, y: 35 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.12 }}
-                    whileHover={{ y: -7 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="card-topline">
-                      <span className="card-version">{os.version}</span>
-                      <ArrowUpRight size={16} className="card-arrow" />
-                    </div>
+              <div className="terminal-window">
+                <div className="terminal-window-bar">
+                  <span>ENVIRONMENT_MANAGER.EXE</span>
+                  <span>4 ENVIRONMENTS FOUND</span>
+                </div>
 
-                    <div className="os-artwork">
-                      <div className="artwork-orbit orbit-one" />
-                      <div className="artwork-orbit orbit-two" />
-                      <div className="artwork-glow" />
+                <div className="terminal-content">
+                  <div className="command-line">
+                    <span className="command-path">C:\USERS\VISITOR&gt;</span>
+                    <span> desktop.exe --list-environments</span>
+                  </div>
 
-                      <div className="placeholder-app">
-                        <div className="placeholder-icon">
-                          <Icon size={55} />
-                        </div>
-                      </div>
-                    </div>
+                  <div className="environment-heading">
+                    AVAILABLE ENVIRONMENTS
+                  </div>
 
-                    <div className="card-content">
-                      <div className="os-title-row">
-                        <div className="os-icon">
-                          <Icon size={18} />
-                        </div>
-                        <h2>{os.name}</h2>
-                        <span className="selection-indicator">
-                          {selected ? "✓" : ""}
-                        </span>
-                      </div>
+                  <div className="environment-list">
+                    {operatingSystems.map((os, index) => {
+                      const Icon = os.icon;
+                      const isSelected = selectedOS.id === os.id;
 
-                      <span className="os-subtitle">{os.subtitle}</span>
-                      <p className="os-description">{os.description}</p>
+                      return (
+                        <button
+                          key={os.id}
+                          className={`environment-option ${
+                            isSelected ? "is-selected" : ""
+                          }`}
+                          onClick={() => setSelectedOS(os)}
+                          onDoubleClick={launchOS}
+                          style={
+                            {
+                              "--option-accent": os.accent,
+                            } as CSSProperties
+                          }
+                          aria-pressed={isSelected}
+                        >
+                          <span className="option-number">
+                            [{String(index + 1).padStart(2, "0")}]
+                          </span>
 
-                      <div className="feature-tags">
-                        {os.features.map((feature) => (
-                          <span key={feature}>{feature}</span>
-                        ))}
-                      </div>
+                          <Icon className="option-icon" size={17} />
 
-                      <div className="card-footer">
-                        <span>{selected ? "SELECTED" : "EXPLORE WORLD"}</span>
-                        <span className="footer-arrow">
-                          <ArrowRight size={15} />
-                        </span>
-                      </div>
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </section>
+                          <span className="option-details">
+                            <span className="option-name">{os.name}</span>
+                            <span className="option-subtitle">
+                              {os.subtitle}
+                            </span>
+                          </span>
 
-            <motion.section
-              className="launch-section"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <div className="launch-selected">
-                <span
-                  className="launch-indicator"
-                  style={{ background: selectedOS.accent }}
-                />
-                <div>
-                  <span className="launch-caption">YOUR SELECTED WORLD</span>
-                  <strong>{selectedOS.name}</strong>
+                          <span className="option-version">{os.version}</span>
+
+                          <span className="option-state">
+                            {isSelected ? "SELECTED" : "AVAILABLE"}
+                          </span>
+
+                          <span className="option-arrow">↵</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="terminal-divider" />
+
+                  <div className="selection-info">
+                    <span className="selection-label">CURRENT SELECTION</span>
+                    <span
+                      className="selection-name"
+                      style={{ color: selectedOS.accent }}
+                    >
+                      {selectedOS.name}
+                    </span>
+                    <span className="selection-description">
+                      {selectedOS.description}
+                    </span>
+                  </div>
+
+                  <div className="command-line launch-prompt">
+                    <span className="command-path">C:\USERS\VISITOR&gt;</span>
+                    <span> desktop.exe --launch {selectedOS.id}</span>
+                    <span className="cursor-block" />
+                  </div>
+
+                  <button className="execute-button" onClick={launchOS}>
+                    <span className="execute-icon">▶</span>
+                    EXECUTE
+                    <span className="execute-shortcut">[ ENTER ]</span>
+                  </button>
                 </div>
               </div>
 
-              <button className="launch-button" onClick={launchOS}>
-                <Power size={17} />
-                LAUNCH OPERATING SYSTEM
-                <ArrowUpRight size={16} />
-              </button>
+              <div className="terminal-help">
+                <span>
+                  <kbd>1</kbd>–<kbd>4</kbd> SELECT ENVIRONMENT
+                </span>
+                <span>
+                  <kbd>ENTER</kbd> BOOT SYSTEM
+                </span>
+                <span>
+                  <kbd>DOUBLE CLICK</kbd> QUICK LAUNCH
+                </span>
+              </div>
+            </section>
 
-              <span className="launch-hint">
-                Double-click any world to launch it
-              </span>
-            </motion.section>
-
-            <footer className="site-footer">
+            <footer className="terminal-footer">
               <span>DESKTOP.EXE © 2026</span>
-              <span className="footer-center">
-                <Monitor size={12} /> YOUR LITTLE CORNER OF THE INTERNET
-              </span>
-              <span>BUILT FOR THE CURIOUS <Sparkles size={12} /></span>
+              <span>ALL SYSTEMS OPERATIONAL</span>
+              <span>BUILT FOR THE CURIOUS.</span>
             </footer>
           </motion.div>
         ) : (
@@ -324,7 +344,7 @@ function App() {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7, type: "spring" }}
               >
-                <selectedOS.icon size={62} />
+                <BootIcon size={62} />
               </motion.div>
 
               <span className="boot-brand">DESKTOP.EXE</span>

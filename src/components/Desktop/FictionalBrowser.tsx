@@ -1,17 +1,14 @@
 import { useMemo, useState, type FormEvent } from "react";
 import "./FictionalBrowser.css";
 import {
-  ArrowLeft, ArrowRight, Bookmark, Check, ChevronDown, Compass, ExternalLink,
-  Globe, Heart, Home, Menu, Music2, Newspaper, Plus, Search, Send, Settings2,
-  Sparkles, Star, UserRound, X
+  ArrowLeft, ArrowRight, Bookmark, Compass,
+  Globe, Heart, Music2, Newspaper, Plus, Search, Send, Settings2,
+  Sparkles, UserRound, X
 } from "lucide-react";
-
 type OSId = "retro" | "arcade" | "dream" | "nexus";
 type SiteId = "webwonder" | "pixeltown" | "moodboard" | "myspace" | "daily";
-
 type BrowserTab = { id: number; site: SiteId; title: string };
 type Post = { id: number; author: string; handle: string; text: string; likes: number; time: string };
-
 const siteInfo: Record<SiteId, { title: string; url: string; icon: typeof Globe }> = {
   webwonder: { title: "WebWonder", url: "https://webwonder.exe", icon: Search },
   pixeltown: { title: "PixelTown", url: "https://pixeltown.exe", icon: Heart },
@@ -19,19 +16,16 @@ const siteInfo: Record<SiteId, { title: string; url: string; icon: typeof Globe 
   myspace: { title: "MySpace 2005", url: "https://myspace.exe", icon: UserRound },
   daily: { title: "Daily.exe", url: "https://daily.exe", icon: Newspaper },
 };
-
 const starterPosts: Post[] = [
   { id: 1, author: "Mia Chen", handle: "@miac", text: "made a playlist for rainy bus rides and pretending i'm in a coming-of-age movie ☔", likes: 28, time: "12 min ago" },
   { id: 2, author: "pixel princess", handle: "@starry.exe", text: "tiny reminder: you are allowed to start over as many times as you need ✨", likes: 46, time: "38 min ago" },
   { id: 3, author: "Alex Rivera", handle: "@alex.jpg", text: "found a digital camera at a flea market. the flash photos are EVERYTHING.", likes: 19, time: "1 hr ago" },
 ];
-
 const articles = [
   { category: "CULTURE", title: "The internet is getting its personality back", summary: "Why tiny communities, personal pages and weird little corners of the web are having a moment.", time: "4 min read" },
   { category: "TECH", title: "A beginner's guide to your digital garden", summary: "Build a corner of the internet that feels like yours, one page at a time.", time: "6 min read" },
   { category: "LIFESTYLE", title: "Make an ordinary Tuesday feel cinematic", summary: "A playlist, a camera roll and five small ways to romanticise your routine.", time: "3 min read" },
 ];
-
 export default function FictionalBrowser({ os }: { os: OSId }) {
   const [tabs, setTabs] = useState<BrowserTab[]>([{ id: 1, site: "webwonder", title: "WebWonder" }]);
   const [activeTabId, setActiveTabId] = useState(1);
@@ -52,11 +46,9 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
   const [editingProfile, setEditingProfile] = useState(false);
   const [bookmarks, setBookmarks] = useState<SiteId[]>(["pixeltown", "moodboard", "daily"]);
   const [dailyCategory, setDailyCategory] = useState("ALL");
-
   const activeTab = tabs.find((tab) => tab.id === activeTabId) || tabs[0];
   const currentSite = activeTab.site;
   const currentInfo = siteInfo[currentSite];
-
   const navigate = (site: SiteId, push = true) => {
     setTabs((prev) => prev.map((tab) => tab.id === activeTabId ? { ...tab, site, title: siteInfo[site].title } : tab));
     setAddress(siteInfo[site].url);
@@ -67,7 +59,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
       setHistoryIndex(next.length - 1);
     }
   };
-
   const goBack = () => {
     if (historyIndex > 0) {
       const nextIndex = historyIndex - 1;
@@ -133,7 +124,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
   };
   const toggleBookmark = (id: SiteId) => setBookmarks((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   const filteredArticles = useMemo(() => dailyCategory === "ALL" ? articles : articles.filter((article) => article.category === dailyCategory), [dailyCategory]);
-
   return (
     <div className={`fictional-browser os-${os}`}>
       <div className="fb-tabs">
@@ -174,7 +164,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
             <div className="ww-footnote">A small web for big feelings. <span>EST. 2005 / REIMAGINED</span></div>
           </section>
         )}
-
         {currentSite === "pixeltown" && (
           <section className="pt-page">
             <header className="pt-header"><div className="pt-logo">pixel<span>town</span><i>✳</i></div><span>YOUR PEOPLE. YOUR LITTLE INTERNET.</span><button onClick={() => navigate("myspace")}>My profile <UserRound size={14} /></button></header>
@@ -186,7 +175,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
             </div>
           </section>
         )}
-
         {currentSite === "moodboard" && (
           <section className="mb-page"><header className="mb-header"><div className="mb-brand"><Music2 size={20} /> moodboard<span>.fm</span></div><span>FIND YOUR FREQUENCY</span></header>
             <div className="mb-hero"><div><span className="mb-eyebrow">A SOUNDTRACK FOR RIGHT NOW</span><h1>What does<br /><em>today</em> feel like?</h1><p>Pick a mood. We'll find the sound.</p></div><div className="mb-orb">♫</div></div>
@@ -195,7 +183,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
             <p className="mb-note">A little moodboard for your ears. Music playback is a visual demo.</p>
           </section>
         )}
-
         {currentSite === "myspace" && (
           <section className="ms-page"><div className="ms-top"><div className="ms-wordmark">my<span>space</span><sup>2005</sup></div><span>it's your space. make it yours.</span><button onClick={() => setEditingProfile(!editingProfile)}><Settings2 size={13} /> {editingProfile ? "Done editing" : "Customise profile"}</button></div>
             <div className="ms-layout"><aside className="ms-profile"><div className="ms-profile-art">✿<span>ONLINE NOW</span></div><h2>{profileName}</h2><span className="ms-handle">@yourspace</span><p>{profileBio}</p><div className="ms-profile-actions"><button>Add friend</button><button>Message</button></div><h4>URL</h4><p className="ms-url">myspace.exe/{profileName.toLowerCase().replace(/\s+/g, "-")}</p>{editingProfile && <div className="ms-edit"><label>Display name<input value={profileName} onChange={(e) => { setProfileName(e.target.value); localStorage.setItem("desktop-exe-myspace-name", e.target.value); }} /></label><label>About me<textarea value={profileBio} onChange={(e) => { setProfileBio(e.target.value); localStorage.setItem("desktop-exe-myspace-bio", e.target.value); }} /></label></div>}</aside>
@@ -203,7 +190,6 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
             </div>
           </section>
         )}
-
         {currentSite === "daily" && (
           <section className="dy-page"><header className="dy-header"><div className="dy-masthead">daily<span>.</span>exe</div><div className="dy-meta">THE INTERNET EDITION · FRIDAY, NOVEMBER 6, 2026</div><div className="dy-nav">{["ALL", "CULTURE", "TECH", "LIFESTYLE"].map((item) => <button className={dailyCategory === item ? "active" : ""} key={item} onClick={() => setDailyCategory(item)}>{item}</button>)}</div></header>
             <div className="dy-lead"><div><span className="dy-kicker">THE DAILY BRIEFING</span><h1>Good things<br />are <em>happening.</em></h1><p>Your tiny daily dose of ideas, culture and the things worth talking about.</p></div><div className="dy-art"><span>✳</span><small>ISSUE NO. 026</small></div></div>

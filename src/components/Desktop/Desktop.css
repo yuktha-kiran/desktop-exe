@@ -3520,3 +3520,361 @@
     height: 42px;
   }
 }
+/* =========================================================
+   DESKTOPREALM — SIGNATURE OS WIDGETS
+   ========================================================= */
+
+.os-signature-widget {
+  position: absolute;
+  top: 58px;
+  right: 20px;
+  z-index: 2;
+  width: 245px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  user-select: none;
+}
+
+.signature-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signature-heading > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.signature-heading strong {
+  font-size: 11px;
+}
+
+.signature-heading small {
+  font-size: 8px;
+  letter-spacing: 1px;
+  opacity: 0.65;
+}
+
+.signature-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.signature-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+.signature-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+}
+
+.signature-stat strong {
+  font-size: 9px;
+  text-align: right;
+}
+
+.signature-action {
+  width: 100%;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.signature-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+/* RETRO WINDOWS */
+
+.signature-retro {
+  border: 1px solid #a5c5e7;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #f8fbff, #e1edf9);
+  color: #24456b;
+  box-shadow: 2px 5px 16px #12345a40;
+  font-family: Tahoma, Verdana, sans-serif;
+}
+
+.signature-retro .signature-icon {
+  border: 1px solid #a6c7e8;
+  border-radius: 4px;
+  background: linear-gradient(#fff, #cfe4fa);
+  color: #2868a9;
+}
+
+.signature-retro .signature-retro-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px;
+  border: 1px solid #c5dfc0;
+  background: #edf8e9;
+  color: #39783d;
+  font-size: 9px;
+}
+
+.retro-status-light,
+.nexus-status-light {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5bc46c;
+  box-shadow: 0 0 7px #5bc46c;
+}
+
+.signature-retro .signature-stat {
+  padding-bottom: 7px;
+  border-bottom: 1px solid #d4e2ef;
+}
+
+/* ARCADE.EXE */
+
+.signature-arcade {
+  border: 1px solid #c77aff;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #291442, #130b22);
+  color: #f4dcff;
+  box-shadow: 0 0 20px #a34cf044;
+  font-family: "DM Mono", monospace;
+}
+
+.signature-arcade .signature-icon {
+  border: 1px solid #d58aff;
+  border-radius: 4px;
+  background: #a34cf022;
+  color: #e7b5ff;
+}
+
+.arcade-score {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid #a34cf066;
+  background: #0d0718;
+  text-align: center;
+}
+
+.arcade-score span {
+  color: #cba2eb;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+.arcade-score strong {
+  color: #f1b7ff;
+  font-size: 28px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 12px #d58aff;
+}
+
+.arcade-action {
+  border: 1px solid #d58aff;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #8c42bd, #52217b);
+  color: #fff;
+  box-shadow: 0 0 12px #a34cf044;
+}
+
+.signature-arcade .signature-footer {
+  color: #d3b2ed;
+}
+
+/* DREAMOS */
+
+.signature-dream {
+  border: 1px solid #fff;
+  border-radius: 17px;
+  background: rgba(255, 247, 253, 0.88);
+  color: #765675;
+  box-shadow: 0 12px 30px #a66eaa30;
+  backdrop-filter: blur(18px);
+}
+
+.signature-dream .signature-icon {
+  border: 1px solid #fff;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #fff, #f8d9ef);
+  color: #c16eaa;
+}
+
+.dream-prompt {
+  margin: 0;
+  font-size: 10px;
+}
+
+.dream-moods {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.dream-moods button {
+  min-width: 0;
+  padding: 8px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: #ffffffa8;
+  color: #805c7c;
+  cursor: pointer;
+}
+
+.dream-moods button span {
+  font-size: 18px;
+}
+
+.dream-moods button small {
+  font-size: 8px;
+}
+
+.dream-moods button.mood-active {
+  border-color: #d98cbd;
+  background: #f8dcec;
+  box-shadow: 0 3px 9px #b47eaa25;
+}
+
+.dream-mood-result {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px;
+  border-radius: 9px;
+  background: #f8e5f2;
+  font-size: 9px;
+}
+
+.dream-mood-result strong {
+  color: #b45e98;
+}
+
+/* NEXUS OS */
+
+.signature-nexus {
+  border: 1px solid #53f5dc77;
+  border-radius: 4px;
+  background: linear-gradient(145deg, #0c2834, #06151f);
+  color: #cafff7;
+  box-shadow: 0 0 22px #53f5dc22;
+  font-family: "DM Mono", monospace;
+}
+
+.signature-nexus .signature-icon {
+  border: 1px solid #53f5dc77;
+  border-radius: 3px;
+  background: #53f5dc12;
+  color: #72ffea;
+}
+
+.nexus-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid #53f5dc33;
+  background: #53f5dc0a;
+  color: #8cfff0;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.nexus-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 8px;
+}
+
+.nexus-metric span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #80cfc9;
+}
+
+.nexus-metric strong {
+  color: #72ffea;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+}
+
+.nexus-action {
+  border: 1px solid #53f5dc88;
+  border-radius: 2px;
+  background: #53f5dc15;
+  color: #aafff3;
+}
+
+.nexus-result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid #53f5dc44;
+  background: #53f5dc0d;
+  color: #9dfff1;
+  font-size: 8px;
+}
+
+.nexus-result small {
+  color: #80cfc9;
+  font-size: 8px;
+}
+
+.signature-nexus .signature-footer {
+  color: #80cfc9;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .os-signature-widget {
+    top: 58px;
+    right: 8px;
+    width: min(215px, calc(100vw - 115px));
+    padding: 10px;
+    gap: 9px;
+  }
+
+  .signature-heading strong {
+    font-size: 10px;
+  }
+
+  .signature-stat {
+    font-size: 8px;
+  }
+
+  .signature-stat strong {
+    font-size: 8px;
+  }
+}

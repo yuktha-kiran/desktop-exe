@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import "./Desktop.css";
+import OSSignatureWidget from "./OSSignatureWidget";
 import "./DesktopApps.css";
 import PixelPaint from "./PixelPaint";
 import FictionalBrowser from "./FictionalBrowser";
@@ -715,6 +716,7 @@ export default function Desktop({ os, onExit }: Props) {
         <span className="desktop-os-label"><Sparkles size={13} /> {osNames[os]}</span>
         <span className="desktop-greeting">Your little corner of the internet.</span>
       </div>
+     <OSSignatureWidget os={os} /> 
       <div className="desktop-icons">
         {apps.map((app) => {
           const Icon = app.icon;

@@ -74,8 +74,8 @@ const wallpapers: Record<OSId, string[]> = {
   dream: ["Pink Clouds", "Dream Garden", "Lavender Sky"],
   nexus: ["Deep Space", "Neural Grid", "Cyber Horizon"],
 };
-const NOTE_KEY = "desktop-exe-notes-v1";
-const EVENT_KEY = "desktop-exe-events-v1";
+const NOTE_KEY = "desktop-verse-notes-v1";
+const EVENT_KEY = "desktop-verse-events-v1";
 const eventColors = [
   "#5C9FE8",
   "#E78AB9",

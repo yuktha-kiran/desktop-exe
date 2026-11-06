@@ -188,7 +188,7 @@ function App() {
                 onClick={(event) => event.preventDefault()}
               >
                 <span className="brand-symbol">D</span>
-                <span>DESKTOP.EXE</span>
+                <span>DESKTOPREALM</span>
               </a>
 
               <div className="header-status">
@@ -211,7 +211,7 @@ function App() {
                 <h1>
                   Welcome to
                   <br />
-                  <span>desktop.exe</span>
+                  <span>desktoprealm</span>
                 </h1>
                 <p className="terminal-description">
                   Choose an environment to initialise your desktop.
@@ -229,7 +229,7 @@ function App() {
                 <div className="terminal-content">
                   <div className="command-line">
                     <span className="command-path">C:\USERS\VISITOR&gt;</span>
-                    <span> desktop.exe --list-environments</span>
+                    <span> desktoprealm --list-environments</span>
                   </div>
 
                   <div className="environment-heading">
@@ -298,7 +298,7 @@ function App() {
 
                   <div className="command-line launch-prompt">
                     <span className="command-path">C:\USERS\VISITOR&gt;</span>
-                    <span> desktop.exe --launch {selectedOS.id}</span>
+                    <span> desktoprealm --launch {selectedOS.id}</span>
                     <span className="cursor-block" />
                   </div>
 
@@ -324,7 +324,7 @@ function App() {
             </section>
 
             <footer className="terminal-footer">
-              <span>DESKTOP.EXE © 2026</span>
+              <span>DESKTOPREALM © 2026</span>
               <span>ALL SYSTEMS OPERATIONAL</span>
               <span>BUILT FOR THE CURIOUS.</span>
             </footer>
@@ -346,7 +346,7 @@ function App() {
                 <BootIcon size={62} />
               </motion.div>
 
-              <span className="boot-brand">DESKTOP.EXE</span>
+              <span className="boot-brand">DESKTOPREALM</span>
               <h1>{selectedOS.name}</h1>
               <p className="boot-message">{selectedOS.bootMessage}</p>
 

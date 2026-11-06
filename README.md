@@ -1,32 +1,40 @@
-# React + TypeScript + Vite
+# DesktopRealm
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A browser-based desktop experience featuring four distinct operating system environments:
 
-Currently, two official plugins are available:
+- **Retro Windows** — a nostalgic classic desktop.
+- **Arcade.exe** — a playful pixel and arcade-inspired environment.
+- **DreamOS** — a dreamy, creative desktop.
+- **Nexus OS** — a futuristic digital workspace.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Run locally
 
-## React Compiler
+Requirements: Node.js and npm.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Production build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Tech stack
+
+- React
+- TypeScript
+- Vite
+- Framer Motion
+- Lucide React
+
+## Deployment
+
+The intended production URL is:
+
+https://desktoprealm.vercel.app
+
+The GitHub repository can retain its existing name (`desktop-exe`); the repository name and deployed product branding do not need to match.

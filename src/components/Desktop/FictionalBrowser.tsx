@@ -34,15 +34,15 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
   const [address, setAddress] = useState(siteInfo.webwonder.url);
   const [query, setQuery] = useState("");
   const [posts, setPosts] = useState<Post[]>(() => {
-    try { return JSON.parse(localStorage.getItem("desktop-exe-pixeltown-posts") || "null") || starterPosts; }
+    try { return JSON.parse(localStorage.getItem("desktop-verse-pixeltown-posts") || "null") || starterPosts; }
     catch { return starterPosts; }
   });
   const [postText, setPostText] = useState("");
   const [liked, setLiked] = useState<number[]>([]);
   const [mood, setMood] = useState("dreamy");
   const [playing, setPlaying] = useState("Space Song");
-  const [profileName, setProfileName] = useState(() => localStorage.getItem("desktop-exe-myspace-name") || "your name here");
-  const [profileBio, setProfileBio] = useState(() => localStorage.getItem("desktop-exe-myspace-bio") || "collecting moments & making memories ✿");
+  const [profileName, setProfileName] = useState(() => localStorage.getItem("desktop-verse-myspace-name") || "your name here");
+  const [profileBio, setProfileBio] = useState(() => localStorage.getItem("desktop-verse-myspace-bio") || "collecting moments & making memories ✿");
   const [editingProfile, setEditingProfile] = useState(false);
   const [bookmarks, setBookmarks] = useState<SiteId[]>(["pixeltown", "moodboard", "daily"]);
   const [dailyCategory, setDailyCategory] = useState("ALL");
@@ -116,7 +116,7 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
     if (!postText.trim()) return;
     const next = [{ id: Date.now(), author: "You", handle: "@you.exe", text: postText.trim(), likes: 0, time: "just now" }, ...posts];
     setPosts(next);
-    localStorage.setItem("desktop-exe-pixeltown-posts", JSON.stringify(next));
+    localStorage.setItem("desktop-verse-pixeltown-posts", JSON.stringify(next));
     setPostText("");
   };
   const toggleLike = (id: number) => {
@@ -185,7 +185,7 @@ export default function FictionalBrowser({ os }: { os: OSId }) {
         )}
         {currentSite === "myspace" && (
           <section className="ms-page"><div className="ms-top"><div className="ms-wordmark">my<span>space</span><sup>2005</sup></div><span>it's your space. make it yours.</span><button onClick={() => setEditingProfile(!editingProfile)}><Settings2 size={13} /> {editingProfile ? "Done editing" : "Customise profile"}</button></div>
-            <div className="ms-layout"><aside className="ms-profile"><div className="ms-profile-art">✿<span>ONLINE NOW</span></div><h2>{profileName}</h2><span className="ms-handle">@yourspace</span><p>{profileBio}</p><div className="ms-profile-actions"><button>Add friend</button><button>Message</button></div><h4>URL</h4><p className="ms-url">myspace.exe/{profileName.toLowerCase().replace(/\s+/g, "-")}</p>{editingProfile && <div className="ms-edit"><label>Display name<input value={profileName} onChange={(e) => { setProfileName(e.target.value); localStorage.setItem("desktop-exe-myspace-name", e.target.value); }} /></label><label>About me<textarea value={profileBio} onChange={(e) => { setProfileBio(e.target.value); localStorage.setItem("desktop-exe-myspace-bio", e.target.value); }} /></label></div>}</aside>
+            <div className="ms-layout"><aside className="ms-profile"><div className="ms-profile-art">✿<span>ONLINE NOW</span></div><h2>{profileName}</h2><span className="ms-handle">@yourspace</span><p>{profileBio}</p><div className="ms-profile-actions"><button>Add friend</button><button>Message</button></div><h4>URL</h4><p className="ms-url">myspace.exe/{profileName.toLowerCase().replace(/\s+/g, "-")}</p>{editingProfile && <div className="ms-edit"><label>Display name<input value={profileName} onChange={(e) => { setProfileName(e.target.value); localStorage.setItem("desktop-verse-myspace-name", e.target.value); }} /></label><label>About me<textarea value={profileBio} onChange={(e) => { setProfileBio(e.target.value); localStorage.setItem("desktop-verse-myspace-bio", e.target.value); }} /></label></div>}</aside>
               <div className="ms-main"><div className="ms-box ms-blurb"><h3>★ {profileName.toUpperCase()}'S BLURB</h3><p>Hey, welcome to my page! Thanks for stopping by. Leave a comment, say hello, and don't forget to add me. xoxo</p></div><div className="ms-box"><h3>TOP 8 FRIENDS</h3><div className="ms-friends">{["Mia", "Alex", "Sam", "Jamie", "Rory", "Sky", "Noah", "You"].map((friend, index) => <div key={friend}><span>{["✿", "☻", "★", "♫", "♡", "☁", "✳", "Y"][index]}</span><strong>{friend}</strong></div>)}</div></div><div className="ms-box ms-comments"><h3>LEAVE A COMMENT</h3><p>Your friends would leave a message here. This guestbook is waiting for its first hello!</p><button onClick={() => navigate("pixeltown")}>Visit the town feed <ArrowRight size={13} /></button></div></div>
             </div>
           </section>

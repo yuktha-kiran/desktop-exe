@@ -201,8 +201,7 @@ function App() {
 
             <section className="terminal-main">
               <div className="terminal-meta">
-                <span>DESKTOP.EXE [VERSION 1.0.0]</span>
-                <span>INTERACTIVE ENVIRONMENT SELECTOR</span>
+                
               </div>
 
               <div className="terminal-intro">
